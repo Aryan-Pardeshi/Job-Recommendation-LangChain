@@ -7,9 +7,8 @@ An intelligent, autonomous job recommendation agent that parses your resume and 
 ### 🎥 Video Demo
 
 > Watch the agent in action below as it parses a resume, figures out the best location/roles, and executes tool scrape requests:
-> 
-> <video src="images%20and%20vids/2026-03-19%2013-47-19.mp4" controls="controls" style="max-width: 730px;">
-> </video>
+>
+> 🍿 **[Click here to watch the full Video Demo!](https://github.com/Aryan-Pardeshi/Job-Recommendation-LangChain/blob/main/images%20and%20vids/2026-03-19%2013-47-19.mp4)**
 
 ---
 
