@@ -7,7 +7,7 @@ An intelligent, autonomous job recommendation agent that parses your resume and 
 ### 🎥 Video Demo
 
 > <video width="730" controls loop muted autoplay>
->    <source src="https://github.com/Aryan-Pardeshi/Job-Recommendation-LangChain/raw/main/images%20and%20vids/2026-03-19%2013-47-19.mp4" />
+>    <source src="https://github.com/Aryan-Pardeshi/Job-Recommendation-LangChain/blob/main/images%20and%20vids/2026-03-19%2013-47-19.mp4" />
 > </video>
 
 ---
