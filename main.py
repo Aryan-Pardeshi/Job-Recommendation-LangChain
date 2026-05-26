@@ -45,7 +45,7 @@ if uploaded_file is not None:
         location_pref = st.text_input("Preferred Location", value="", placeholder="e.g. New York, NY (leave blank to detect automatically)")
     
     if st.button("🔍 Find Matching Jobs"):
-        with st.spinner("Searching LinkedIn via Apify..."):
+        with st.spinner("Searching jobs via LinkedIn, Indeed, Google..."):
             preferences = {
                 "work_type": work_type,
                 "experience_level": experience_level,

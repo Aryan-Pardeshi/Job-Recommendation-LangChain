@@ -2,7 +2,7 @@
   <img src="images%20and%20vids/logo.png" alt="AI Job Recommender Logo" width="400" />
 </div>
 
-An intelligent, autonomous job recommendation agent that parses your resume and searches LinkedIn for the perfect matching open roles using LangGraph, Gemini, and Apify.
+An intelligent, autonomous job recommendation agent that parses your resume and searches LinkedIn, Indeed, and Google Jobs for the perfect matching open roles using LangGraph, Gemini, and JobSpy.
 
 ### 🎥 Video Demo
 
@@ -18,7 +18,7 @@ An intelligent, autonomous job recommendation agent that parses your resume and 
 - **Agentic Analysis:** Uses Google's Gemini models inside LangGraph to analyze your career history and determine your optimal seniority, work type, and job title limits.
 - **Smart Location Detection:** Automatically detects your IP and pulls nearby jobs via the free `ip-api.com` service if no location is specified.
 - **Manual Preference Overrides:** Don't want the AI to guess? Override its detections with manual drop-downs for Work Type, Experience Level, and Location fields.
-- **MCP Server Ecosystem:** Uses FastMCP and LangChain's `MultiServerMCPClient` to fetch real-time LinkedIn listings via a decoupled `mcp_server.py`.
+- **MCP Server Ecosystem:** Uses FastMCP and LangChain's `MultiServerMCPClient` to fetch real-time job listings (LinkedIn, Indeed, Google) via a decoupled `mcp_server.py`.
 - **Application Tips:** Dynamically gives you actionable interview and application tips tailored uniquely to the match between your resume properties and the scraped job descriptions.
 
 ---
@@ -42,24 +42,23 @@ uv sync
 ```
 
 ### 3. API Setup & Configuration
-You will need keys for two free services to power the LLM and the Scraper context.
+You will need a key for the LLM service.
 
 1. Copy the example `.env` file to set up your environment:
    ```bash
    cp .env.example .env
    ```
 
-2. **Apify Token:** This app uses Apify's LinkedIn Scraper to fetch live job postings.
-   - Go to [Apify Actor page](https://console.apify.com/actors/BHzefUZlZRKWxkTck/input).
-   - Once logged in, navigate to Settings / Integrations to find your API Token.
-   - Look at the configuration payload expectations below:
-   
-   ![Apify Scraper Config](images%20and%20vids/Linkedin-Scraper.png)
-
-3. **Google API Key:** We use Gemini as our intelligent LangGraph Agent.
+2. **Google API Key:** We use Gemini as our intelligent LangGraph Agent.
    - Go to [Google AI Studio](https://aistudio.google.com/api-keys) and generate an API key.
 
-Paste both of those keys directly into your newly created `.env` file.
+3. **JobSpy (Job Scraper):** This app uses the free [JobSpy](https://github.com/speedyapply/JobSpy) library to scrape live job postings.
+   - No API key needed — JobSpy scrapes LinkedIn, Indeed, and Google Jobs directly.
+   - Install it (due to Python 3.13 numpy pin conflicts):  
+     `pip install python-jobspy --no-deps`  
+     `pip install beautifulsoup4 markdownify regex tls-client`
+
+Paste the key into your newly created `.env` file.
 
 ### 4. Run the Application
 Finally, start the Streamlit front-end using `uv`:
