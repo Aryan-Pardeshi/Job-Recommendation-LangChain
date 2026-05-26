@@ -127,6 +127,13 @@ Open your browser to `http://localhost:8501`, upload your resume, and click **Fi
 
 ## 📊 JobSpy Data Schema
 
+## 🙏 Contributors
+
+- **[Aryan Pardeshi](https://github.com/Aryan-Pardeshi)** — Project lead & development
+- **[GitHub Copilot](https://github.com/features/copilot)** — AI pair programmer (used via OpenCode)
+
+---
+
 Each job result includes:
 - `title`, `company`, `site` (source platform)
 - `job_url`, `location`, `description`
