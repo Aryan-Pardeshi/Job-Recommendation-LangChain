@@ -1,3 +1,6 @@
+# python-jobspy>=1.1.82  --  Install manually (numpy pin conflicts with Python 3.13):
+#   pip install python-jobspy --no-deps
+#   pip install beautifulsoup4 markdownify regex tls-client
 [project]
 name = "job-recommendation-langchain"
 version = "0.1.0"
@@ -5,7 +8,6 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "apify-client>=2.5.0",
     "asyncio>=4.0.0",
     "dotenv>=0.9.9",
     "fastmcp>=3.1.1",
