@@ -6,6 +6,7 @@ load_dotenv()
 
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import ChatOpenAI
 from langchain.agents import create_agent
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
@@ -37,8 +38,55 @@ The user will provide their resume text. Your job is to:
 Be concise and ensure every job has a clickable apply link.
 """
 
+PROVIDER_CONFIG = {
+    "google": {
+        "models": ["gemini-3.1-flash-lite-preview", "gemini-2.5-flash-preview", "gemini-2.0-flash"],
+        "env_key": "GOOGLE_API_KEY",
+        "default_model": "gemini-3.1-flash-lite-preview",
+    },
+    "opencode_zen": {
+        "models": ["big-pickle", "mimo-v2-pro-free", "mimo-v2-omni-free", "minimax-m2.5-free", "nemotron-3-super-free"],
+        "env_key": "OPENCODE_ZEN_API_KEY",
+        "default_model": "big-pickle",
+        "api_base": "https://opencode.ai/zen/v1",
+    },
+}
 
-async def _run_agent_async(resume_text: str, user_location: str, preferences: dict = None) -> str:
+
+def get_llm(provider: str, model: str = None, api_key: str = None):
+    cfg = PROVIDER_CONFIG.get(provider)
+    if not cfg:
+        raise ValueError(f"Unknown provider: {provider}")
+
+    model = model or cfg["default_model"]
+    api_key = api_key or os.getenv(cfg["env_key"])
+
+    if not api_key:
+        raise ValueError(f"API key for {provider} not found. Set {cfg['env_key']} in .env or provide it.")
+
+    if provider == "google":
+        logger.info(f"Using Google Gemini: {model}")
+        return ChatGoogleGenerativeAI(model=model, google_api_key=api_key)
+
+    if provider == "opencode_zen":
+        logger.info(f"Using OpenCode Zen: {model}")
+        return ChatOpenAI(
+            model=model,
+            api_key=api_key,
+            base_url=cfg["api_base"],
+        )
+
+    raise ValueError(f"Unsupported provider: {provider}")
+
+
+async def _run_agent_async(
+    resume_text: str,
+    user_location: str,
+    preferences: dict = None,
+    llm_provider: str = "google",
+    llm_model: str = None,
+    api_key: str = None,
+) -> str:
     project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
     client = MultiServerMCPClient(
@@ -57,10 +105,10 @@ async def _run_agent_async(resume_text: str, user_location: str, preferences: di
         logger.error(f"Failed to connect to MCP server: {e}")
         return f"Error: Could not start the job search service. {e}"
 
-    llm = ChatGoogleGenerativeAI(
-        model="gemini-3.1-flash-lite-preview",
-        google_api_key=os.getenv("GOOGLE_API_KEY"),
-    )
+    try:
+        llm = get_llm(llm_provider, llm_model, api_key)
+    except ValueError as e:
+        return f"Error: {e}"
 
     agent = create_agent(llm, tools, system_prompt=SYSTEM_PROMPT)
 
@@ -84,5 +132,14 @@ async def _run_agent_async(resume_text: str, user_location: str, preferences: di
         return f"Error: Failed to generate recommendations. {e}"
 
 
-def run_agent(resume_text: str, user_location: str, preferences: dict = None) -> str:
-    return asyncio.run(_run_agent_async(resume_text, user_location, preferences))
+def run_agent(
+    resume_text: str,
+    user_location: str,
+    preferences: dict = None,
+    llm_provider: str = "google",
+    llm_model: str = None,
+    api_key: str = None,
+) -> str:
+    return asyncio.run(
+        _run_agent_async(resume_text, user_location, preferences, llm_provider, llm_model, api_key)
+    )
