@@ -2,7 +2,7 @@
   <img src="images%20and%20vids/logo.png" alt="AI Job Recommender Logo" width="400" />
 </div>
 
-An intelligent, autonomous job recommendation agent that parses your resume and searches **LinkedIn**, **Indeed**, and **Google Jobs** for the perfect matching open roles — powered by LangGraph, Gemini, and [JobSpy](https://github.com/speedyapply/JobSpy).
+An intelligent, autonomous job recommendation agent that parses your resume and searches **LinkedIn**, **Indeed**, and **Google Jobs** for the perfect matching open roles — powered by LangGraph, [JobSpy](https://github.com/speedyapply/JobSpy), and your choice of **Google Gemini** or **OpenCode Zen** (free models).
 
 ### 🎥 Video Demo
 
@@ -14,7 +14,7 @@ https://github.com/Aryan-Pardeshi/Job-Recommendation-LangChain/raw/main/images%2
 
 ### Core
 - **Resume Parsing Engine** — Upload your PDF resume directly into the app.
-- **Agentic Analysis** — Uses Google's Gemini inside LangGraph to analyze your career history and determine your optimal seniority, work type, and job title.
+- **Agentic Analysis** — Uses LangGraph to analyze your career history with your choice of **Google Gemini** or **OpenCode Zen** (free models like Big Pickle, MiMo V2 Pro, MiniMax M2.5).
 - **Multi-Platform Search** — Searches **LinkedIn**, **Indeed**, and **Google Jobs** simultaneously via [JobSpy](https://github.com/speedyapply/JobSpy) (free, no API key).
 - **Smart Location Detection** — Automatically detects your IP and pulls nearby jobs via the free `ip-api.com` service.
 - **Manual Preference Overrides** — Override AI detections with dropdowns for Work Type, Experience Level, Location, and Job Boards.
@@ -36,6 +36,7 @@ https://github.com/Aryan-Pardeshi/Job-Recommendation-LangChain/raw/main/images%2
 - **MCP Server Ecosystem** — Decoupled [Model Context Protocol](https://modelcontextprotocol.io) server (`mcp_server.py`) exposes job search tools. The LangChain agent connects via `MultiServerMCPClient`.
 - **Three MCP Tools** — `search_jobs_tool` (filtered), `search_jobs_broad_tool` (unfiltered), `list_supported_sites`.
 - **Zero Cloud Dependencies** — Everything runs locally. No paid APIs for scraping.
+- **Dual Provider Support** — Choose between Google Gemini or OpenCode Zen (free models) in the UI. API keys are saved to `.env` automatically.
 
 ---
 
@@ -65,16 +66,25 @@ pip install beautifulsoup4 markdownify regex tls-client
 ```
 
 ### 4. API Setup & Configuration
-You only need one API key (for the LLM):
+You need an API key for your chosen LLM provider.
 
 1. Copy the example `.env` file:
    ```bash
    cp .env.example .env
    ```
 
-2. **Google API Key** — We use Gemini as our intelligent LangGraph Agent.
+2. **Choose your provider:**
+
+   **Option A — Google Gemini**
    - Go to [Google AI Studio](https://aistudio.google.com/api-keys) and generate an API key.
-   - Add it to your `.env` file.
+   - Set `GOOGLE_API_KEY` in your `.env` file.
+
+   **Option B — OpenCode Zen (Free)**
+   - Go to [OpenCode Zen Auth](https://opencode.ai/auth) and get your API key.
+   - Set `OPENCODE_ZEN_API_KEY` in your `.env` file.
+   - Available free models: `big-pickle`, `mimo-v2-pro-free`, `mimo-v2-omni-free`, `minimax-m2.5-free`, `nemotron-3-super-free`.
+
+   **Tip:** You can also enter your API key directly in the app UI — it will be saved to `.env` automatically.
 
 ### 5. Run the Application
 ```bash
