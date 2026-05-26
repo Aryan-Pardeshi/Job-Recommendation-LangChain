@@ -45,9 +45,9 @@ PROVIDER_CONFIG = {
         "default_model": "gemini-3.1-flash-lite-preview",
     },
     "opencode_zen": {
-        "models": ["big-pickle", "mimo-v2-pro-free", "mimo-v2-omni-free", "minimax-m2.5-free", "nemotron-3-super-free"],
+        "models": ["big-pickle", "deepseek-v4-flash-free", "mimo-v2-pro-free", "mimo-v2-omni-free", "minimax-m2.5-free", "nemotron-3-super-free"],
         "env_key": "OPENCODE_ZEN_API_KEY",
-        "default_model": "big-pickle",
+        "default_model": "deepseek-v4-flash-free",
         "api_base": "https://opencode.ai/zen/v1",
     },
 }
