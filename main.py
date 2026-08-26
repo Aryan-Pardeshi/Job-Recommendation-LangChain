@@ -106,8 +106,8 @@ if uploaded_file is not None:
     with col3:
         location_pref = st.text_input(
             "Preferred Location",
-            value="",
-            placeholder="e.g. New York, NY (leave blank to auto-detect)",
+            value=user_location,
+            placeholder="e.g. New York, NY (edit if needed)",
         )
 
     # ── Provider Selection ──

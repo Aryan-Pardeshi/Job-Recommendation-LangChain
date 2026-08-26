@@ -6,9 +6,7 @@ An intelligent, autonomous job recommendation agent that parses your resume and 
 
 ### 🎥 Video Demo
 
-> <video width="730" controls loop muted autoplay>
->    <source src="https://github.com/Aryan-Pardeshi/Job-Recommendation-LangChain/blob/main/images%20and%20vids/2026-03-19%2013-47-19.mp4" />
-> </video>
+https://github.com/Aryan-Pardeshi/Job-Recommendation-LangChain/raw/main/images%20and%20vids/2026-03-19%2013-47-19.mp4
 
 ---
 
@@ -102,7 +100,7 @@ Open your browser to `http://localhost:8501`, upload your resume, and click **Fi
 ├── main.py                 # Streamlit UI (entry point)
 ├── mcp_server.py           # FastMCP server with 3 job-search tools
 ├── pyproject.toml          # Project metadata and dependencies
-├── .env                    # Environment variables (GOOGLE_API_KEY)
+├── .env                    # Environment variables (GOOGLE_API_KEY, OPENCODE_ZEN_API_KEY)
 ├── README.md               # This file
 │
 ├── src/
